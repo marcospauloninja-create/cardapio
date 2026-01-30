@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Center Frios Rotisseria – Cardápio</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; background:#000; color:#fff }
+    header { background:#111; padding:15px; text-align:center }
+    header h1 { color:#ffcc00; margin:5px 0 }
+    .container { padding:15px }
+    .card { background:#1a1a1a; border-radius:10px; padding:15px; margin-bottom:15px }
+    h2 { color:#ff4444 }
+    label { display:block; margin:5px 0 }
+    button { background:#ff4444; color:#fff; border:none; padding:12px; width:100%; font-size:18px; border-radius:8px }
+    .admin { background:#222; padding:10px; border-radius:8px; margin-bottom:10px }
+    .hidden { display:none }
+  </style>
+</head>
+<body><header>
+  <img src="logo.png" alt="Center Frios" style="max-width:180px"><br>
+  <h1>Almoço caseiro</h1>
+  <p>Pedidos até <span id="hora">12:30</span></p>
+</header><div class="container">  <div class="admin">
+    <strong>Modo edição (uso interno)</strong><br>
+    Hora limite: <input type="text" id="editHora" value="12:30" />
+    <button onclick="salvarHora()">Salvar</button>
+  </div>  <div class="card">
+    <h2>Marmita</h2>
+    <label><input type="radio" name="tam" value="P"> P – R$24 (1 carne)</label>
+    <label><input type="radio" name="tam" value="M"> M – R$27 (1 carne)</label>
+    <label><input type="radio" name="tam" value="G"> G – R$30 (2 carnes)</label>
+  </div>  <div class="card">
+    <h2>Carnes</h2>
+    <label><input type="checkbox" class="item" value="Bife rolê"> Bife rolê</label>
+    <label><input type="checkbox" class="item" value="Bife acebolado"> Bife acebolado</label>
+    <label><input type="checkbox" class="item" value="Carne moída refogada"> Carne moída refogada</label>
+    <label><input type="checkbox" class="item" value="Frango empanado"> Frango empanado</label>
+    <label><input type="checkbox" class="item" value="Costelinha frita"> Costelinha frita</label>
+  </div>  <div class="card">
+    <h2>Guarnições</h2>
+    <label><input type="checkbox" class="item" value="Macarrão bolonhesa"> Macarrão bolonhesa</label>
+    <label><input type="checkbox" class="item" value="Purê de batata"> Purê de batata</label>
+    <label><input type="checkbox" class="item" value="Feijão tropeiro"> Feijão tropeiro</label>
+    <label><input type="checkbox" class="item" value="Batata doce"> Batata doce</label>
+    <label><input type="checkbox" class="item" value="Quiabo com milho"> Quiabo com milho</label>
+    <label><input type="checkbox" class="item" value="Cabotiá"> Cabotiá</label>
+    <label><input type="checkbox" class="item" value="Bolinho de arroz"> Bolinho de arroz</label>
+    <label><input type="checkbox" class="item" value="Croquete"> Croquete</label>
+  </div>  <div class="card">
+    <h2>Saladas</h2>
+    <label><input type="checkbox" class="item" value="Salada verde"> Salada verde</label>
+    <label><input type="checkbox" class="item" value="Salada de legumes"> Salada de legumes</label>
+    <label><input type="checkbox" class="item" value="Salada tropical"> Salada tropical</label>
+    <label><input type="checkbox" class="item" value="Salada de macarrão"> Salada de macarrão</label>
+    <label><input type="checkbox" class="item" value="Salada crocante"> Salada crocante</label>
+  </div><button onclick="enviarPedido()">PEDIR NO WHATSAPP</button>
+
+</div><script>
+  const horaSpan = document.getElementById('hora');
+  const salvaHora = localStorage.getItem('hora');
+  if(salvaHora) horaSpan.textContent = salvaHora;
+
+  function salvarHora(){
+    const h = document.getElementById('editHora').value;
+    localStorage.setItem('hora', h);
+    horaSpan.textContent = h;
+    alert('Atualizado');
+  }
+
+  function enviarPedido(){
+    let texto = 'Olá! Gostaria de fazer um pedido:%0A%0A';
+    const tam = document.querySelector('input[name="tam"]:checked');
+    if(tam) texto += 'Marmita: ' + tam.value + '%0A';
+    document.querySelectorAll('.item:checked').forEach(i => texto += '- ' + i.value + '%0A');
+    texto += '%0AEntrega ou retirada:%0AForma de pagamento:%0A';
+    window.open('https://wa.me/5567981460233?text=' + texto);
+  }
+</script></body>
+</html>
