@@ -21,9 +21,17 @@
   <h1>Almoço caseiro</h1>
   <p>Pedidos até <span id="hora">12:30</span></p>
 </header><div class="container">  <div class="admin">
-    <strong>Modo edição (uso interno)</strong><br>
-    Hora limite: <input type="text" id="editHora" value="12:30" />
-    <button onclick="salvarHora()">Salvar</button>
+    <strong>Modo edição (uso interno)</strong><br><br>
+    ⏰ Hora limite: <input type="text" id="editHora" value="12:30" /><br><br>
+    💳 Pagamentos:<br>
+    <label><input type="checkbox" id="pix" checked> Pix</label>
+    <label><input type="checkbox" id="dinheiro" checked> Dinheiro</label>
+    <label><input type="checkbox" id="cartao" checked> Cartão</label><br>🚚 Entrega:<br>
+<label><input type="radio" name="entrega" value="Entrega" checked> Entrega</label>
+<label><input type="radio" name="entrega" value="Retirada"> Retirada</label><br><br>
+
+<button onclick="salvarConfig()">Salvar configurações</button>
+
   </div>  <div class="card">
     <h2>Marmita</h2>
     <label><input type="radio" name="tam" value="P"> P – R$24 (1 carne)</label>
@@ -57,22 +65,40 @@
 
 </div><script>
   const horaSpan = document.getElementById('hora');
-  const salvaHora = localStorage.getItem('hora');
-  if(salvaHora) horaSpan.textContent = salvaHora;
+  const config = JSON.parse(localStorage.getItem('config')) || {};
 
-  function salvarHora(){
-    const h = document.getElementById('editHora').value;
-    localStorage.setItem('hora', h);
-    horaSpan.textContent = h;
-    alert('Atualizado');
+  if(config.hora) horaSpan.textContent = config.hora;
+
+  function salvarConfig(){
+    const cfg = {
+      hora: document.getElementById('editHora').value,
+      pix: document.getElementById('pix').checked,
+      dinheiro: document.getElementById('dinheiro').checked,
+      cartao: document.getElementById('cartao').checked,
+      entrega: document.querySelector('input[name="entrega"]:checked').value
+    };
+    localStorage.setItem('config', JSON.stringify(cfg));
+    horaSpan.textContent = cfg.hora;
+    alert('Configurações salvas');
   }
 
   function enviarPedido(){
+    const cfg = JSON.parse(localStorage.getItem('config')) || {};
     let texto = 'Olá! Gostaria de fazer um pedido:%0A%0A';
+
     const tam = document.querySelector('input[name="tam"]:checked');
     if(tam) texto += 'Marmita: ' + tam.value + '%0A';
+
+    texto += '%0ACarnes / Itens:%0A';
     document.querySelectorAll('.item:checked').forEach(i => texto += '- ' + i.value + '%0A');
-    texto += '%0AEntrega ou retirada:%0AForma de pagamento:%0A';
+
+    texto += '%0A🚚 ' + (cfg.entrega || 'Entrega/Retirada') + '%0A';
+
+    texto += '%0A💳 Pagamento:%0A';
+    if(cfg.pix) texto += '- Pix%0A';
+    if(cfg.dinheiro) texto += '- Dinheiro%0A';
+    if(cfg.cartao) texto += '- Cartão%0A';
+
     window.open('https://wa.me/5567981460233?text=' + texto);
   }
 </script></body>
