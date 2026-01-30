@@ -20,7 +20,7 @@
   <img src="logo.png" alt="Center Frios" style="max-width:180px"><br>
   <h1>Almoço caseiro</h1>
   <p>Pedidos até <span id="hora">12:30</span></p>
-</header><div class="container">  <div class="admin">
+</header><div class="container">  <div class="admin" id="admin">
     <strong>Modo edição (uso interno)</strong><br><br>
     ⏰ Hora limite: <input type="text" id="editHora" value="12:30" /><br><br>
     💳 Pagamentos:<br>
@@ -65,8 +65,15 @@
 
 </div><script>
   const horaSpan = document.getElementById('hora');
-  const config = JSON.parse(localStorage.getItem('config')) || {};
+  const adminDiv = document.getElementById('admin');
+  const urlParams = new URLSearchParams(window.location.search);
+  const modoCliente = urlParams.get('cliente');
 
+  if(modoCliente === '1'){
+    adminDiv.style.display = 'none';
+  }
+
+  const config = JSON.parse(localStorage.getItem('config')) || {};
   if(config.hora) horaSpan.textContent = config.hora;
 
   function salvarConfig(){
@@ -85,7 +92,6 @@
   function enviarPedido(){
     const cfg = JSON.parse(localStorage.getItem('config')) || {};
     let texto = 'Olá! Gostaria de fazer um pedido:%0A%0A';
-
     const tam = document.querySelector('input[name="tam"]:checked');
     if(tam) texto += 'Marmita: ' + tam.value + '%0A';
 
