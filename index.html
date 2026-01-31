@@ -91,6 +91,38 @@
 
   function enviarPedido(){
     const data = JSON.parse(localStorage.getItem('cfg')) || {};
+    let total = 0;
+    let msg = 'Olá! Gostaria de fazer um pedido:%0A%0A';
+
+    const t = document.querySelector('input[name="tam"]:checked');
+    if(t){
+      if(t.value==='P') total = 24;
+      if(t.value==='M') total = 27;
+      if(t.value==='G') total = 30;
+      msg += '🍱 Marmita: ' + t.value + ' - R$ ' + total.toFixed(2) + '%0A';
+    }
+
+    msg += '%0A🍽️ Itens:%0A';
+    document.querySelectorAll('.item:checked').forEach(i=>{
+      msg += '- ' + i.value + '%0A';
+    });
+
+    if(data.entrega === 'Entrega'){
+      total += 3;
+      msg += '%0A🚚 Entrega (+R$ 3,00)%0A';
+    } else {
+      msg += '%0A🏠 Retirada%0A';
+    }
+
+    msg += '%0A💳 Pagamento:%0A';
+    if(data.pix) msg += '- Pix%0A';
+    if(data.dinheiro) msg += '- Dinheiro%0A';
+    if(data.cartao) msg += '- Cartão%0A';
+
+    msg += '%0A💰 Total: R$ ' + total.toFixed(2);
+
+    window.open('https://wa.me/5567981460233?text=' + msg,'_blank');
+  };
     let msg = 'Olá! Gostaria de fazer um pedido:%0A%0A';
 
     const t = document.querySelector('input[name="tam"]:checked');
