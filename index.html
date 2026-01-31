@@ -1,52 +1,56 @@
 <!DOCTYPE html><html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Center Frios Rotisseria – Cardápio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Center Frios Rotisseria</title>
   <style>
-    body { font-family: Arial, sans-serif; margin:0; background:#000; color:#fff }
-    header { background:#111; padding:15px; text-align:center }
-    header h1 { color:#ffcc00; margin:5px 0 }
-    .container { padding:15px }
-    .card { background:#1a1a1a; border-radius:10px; padding:15px; margin-bottom:15px }
-    h2 { color:#ff4444 }
-    label { display:block; margin:5px 0 }
-    button { background:#ff4444; color:#fff; border:none; padding:12px; width:100%; font-size:18px; border-radius:8px }
-    .admin { background:#222; padding:10px; border-radius:8px; margin-bottom:10px }
-    .hidden { display:none }
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#000;color:#fff}
+    header{background:#111;padding:15px;text-align:center}
+    header img{max-width:180px;margin-bottom:10px}
+    header h1{color:#ffd000;margin:5px 0}
+    header p{margin:0;color:#ccc}
+    .container{padding:15px}
+    .box{background:#1a1a1a;border-radius:10px;padding:15px;margin-bottom:15px}
+    h2{color:#ff3b3b;margin-top:0}
+    label{display:block;margin:6px 0}
+    button{width:100%;padding:14px;font-size:18px;border:none;border-radius:8px;background:#ff3b3b;color:#fff}
+    .admin{background:#222;border:2px dashed #ff3b3b}
   </style>
 </head>
 <body><header>
-  <img src="logo.png" alt="Center Frios" style="max-width:180px"><br>
+  <img src="logo.png" alt="Center Frios Rotisseria">
   <h1>Almoço caseiro</h1>
   <p>Pedidos até <span id="hora">12:30</span></p>
-</header><div class="container">  <div class="admin" id="admin">
-    <strong>Modo edição (uso interno)</strong><br><br>
-    ⏰ Hora limite: <input type="text" id="editHora" value="12:30" /><br><br>
-    💳 Pagamentos:<br>
-    <label><input type="checkbox" id="pix" checked> Pix</label>
-    <label><input type="checkbox" id="dinheiro" checked> Dinheiro</label>
-    <label><input type="checkbox" id="cartao" checked> Cartão</label><br>🚚 Entrega:<br>
+</header><div class="container">  <!-- MODO EDIÇÃO -->  <div class="box admin" id="admin">
+    <h2>Modo edição</h2>⏰ Hora limite:<br>
+<input id="editHora" type="text" value="12:30"><br><br>
+
+💳 Formas de pagamento:<br>
+<label><input type="checkbox" id="pix" checked> Pix</label>
+<label><input type="checkbox" id="dinheiro" checked> Dinheiro</label>
+<label><input type="checkbox" id="cartao" checked> Cartão</label><br>
+
+🚚 Tipo de pedido:<br>
 <label><input type="radio" name="entrega" value="Entrega" checked> Entrega</label>
 <label><input type="radio" name="entrega" value="Retirada"> Retirada</label><br><br>
 
 <button onclick="salvarConfig()">Salvar configurações</button>
 
-  </div>  <div class="card">
+  </div>  <!-- TAMANHO -->  <div class="box">
     <h2>Marmita</h2>
-    <label><input type="radio" name="tam" value="P"> P – R$24 (1 carne)</label>
-    <label><input type="radio" name="tam" value="M"> M – R$27 (1 carne)</label>
-    <label><input type="radio" name="tam" value="G"> G – R$30 (2 carnes)</label>
-  </div>  <div class="card">
+    <label><input type="radio" name="tam" value="P"> P – R$ 24 (1 carne)</label>
+    <label><input type="radio" name="tam" value="M"> M – R$ 27 (1 carne)</label>
+    <label><input type="radio" name="tam" value="G"> G – R$ 30 (2 carnes)</label>
+  </div>  <!-- CARNES -->  <div class="box">
     <h2>Carnes</h2>
     <label><input type="checkbox" class="item" value="Bife rolê"> Bife rolê</label>
     <label><input type="checkbox" class="item" value="Bife acebolado"> Bife acebolado</label>
     <label><input type="checkbox" class="item" value="Carne moída refogada"> Carne moída refogada</label>
     <label><input type="checkbox" class="item" value="Frango empanado"> Frango empanado</label>
     <label><input type="checkbox" class="item" value="Costelinha frita"> Costelinha frita</label>
-  </div>  <div class="card">
+  </div>  <!-- GUARNIÇÕES -->  <div class="box">
     <h2>Guarnições</h2>
-    <label><input type="checkbox" class="item" value="Macarrão bolonhesa"> Macarrão bolonhesa</label>
+    <label><input type="checkbox" class="item" value="Macarrão à bolonhesa"> Macarrão à bolonhesa</label>
     <label><input type="checkbox" class="item" value="Purê de batata"> Purê de batata</label>
     <label><input type="checkbox" class="item" value="Feijão tropeiro"> Feijão tropeiro</label>
     <label><input type="checkbox" class="item" value="Batata doce"> Batata doce</label>
@@ -54,7 +58,7 @@
     <label><input type="checkbox" class="item" value="Cabotiá"> Cabotiá</label>
     <label><input type="checkbox" class="item" value="Bolinho de arroz"> Bolinho de arroz</label>
     <label><input type="checkbox" class="item" value="Croquete"> Croquete</label>
-  </div>  <div class="card">
+  </div>  <!-- SALADAS -->  <div class="box">
     <h2>Saladas</h2>
     <label><input type="checkbox" class="item" value="Salada verde"> Salada verde</label>
     <label><input type="checkbox" class="item" value="Salada de legumes"> Salada de legumes</label>
@@ -64,48 +68,46 @@
   </div><button onclick="enviarPedido()">PEDIR NO WHATSAPP</button>
 
 </div><script>
-  const horaSpan = document.getElementById('hora');
-  const adminDiv = document.getElementById('admin');
-  const urlParams = new URLSearchParams(window.location.search);
-  const modoCliente = urlParams.get('cliente');
-
-  if(modoCliente === '1'){
-    adminDiv.style.display = 'none';
+  const params = new URLSearchParams(window.location.search);
+  if(params.get('cliente') === '1'){
+    document.getElementById('admin').style.display = 'none';
   }
 
-  const config = JSON.parse(localStorage.getItem('config')) || {};
-  if(config.hora) horaSpan.textContent = config.hora;
+  const cfg = JSON.parse(localStorage.getItem('cfg')) || {};
+  if(cfg.hora) document.getElementById('hora').innerText = cfg.hora;
 
   function salvarConfig(){
-    const cfg = {
+    const data = {
       hora: document.getElementById('editHora').value,
       pix: document.getElementById('pix').checked,
       dinheiro: document.getElementById('dinheiro').checked,
       cartao: document.getElementById('cartao').checked,
       entrega: document.querySelector('input[name="entrega"]:checked').value
     };
-    localStorage.setItem('config', JSON.stringify(cfg));
-    horaSpan.textContent = cfg.hora;
-    alert('Configurações salvas');
+    localStorage.setItem('cfg', JSON.stringify(data));
+    document.getElementById('hora').innerText = data.hora;
+    alert('Salvo com sucesso');
   }
 
   function enviarPedido(){
-    const cfg = JSON.parse(localStorage.getItem('config')) || {};
-    let texto = 'Olá! Gostaria de fazer um pedido:%0A%0A';
-    const tam = document.querySelector('input[name="tam"]:checked');
-    if(tam) texto += 'Marmita: ' + tam.value + '%0A';
+    const data = JSON.parse(localStorage.getItem('cfg')) || {};
+    let msg = 'Olá! Gostaria de fazer um pedido:%0A%0A';
 
-    texto += '%0ACarnes / Itens:%0A';
-    document.querySelectorAll('.item:checked').forEach(i => texto += '- ' + i.value + '%0A');
+    const t = document.querySelector('input[name="tam"]:checked');
+    if(t) msg += '🍱 Marmita: ' + t.value + '%0A';
 
-    texto += '%0A🚚 ' + (cfg.entrega || 'Entrega/Retirada') + '%0A';
+    msg += '%0A🍽️ Itens:%0A';
+    document.querySelectorAll('.item:checked').forEach(i=>{
+      msg += '- ' + i.value + '%0A';
+    });
 
-    texto += '%0A💳 Pagamento:%0A';
-    if(cfg.pix) texto += '- Pix%0A';
-    if(cfg.dinheiro) texto += '- Dinheiro%0A';
-    if(cfg.cartao) texto += '- Cartão%0A';
+    msg += '%0A🚚 ' + (data.entrega || '') + '%0A';
+    msg += '%0A💳 Pagamento:%0A';
+    if(data.pix) msg += '- Pix%0A';
+    if(data.dinheiro) msg += '- Dinheiro%0A';
+    if(data.cartao) msg += '- Cartão%0A';
 
-    window.open('https://wa.me/5567981460233?text=' + texto);
+    window.open('https://wa.me/5567981460233?text=' + msg,'_blank');
   }
 </script></body>
 </html>
